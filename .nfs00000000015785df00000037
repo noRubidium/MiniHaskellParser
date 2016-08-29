@@ -1,0 +1,17 @@
+#!/bin/sh
+
+while [ true ]
+do
+    check2=`cat * 2>/dev/null | md5sum`
+    if ! [ "$check" = "$check2" ]
+    then
+        check="$check2"
+        script=`cat script.hs`
+        clear; date
+        if ! ghci main.hs < script.hs | egrep '\*Main\>'
+        then 
+            echo "There's importing error!!!"
+        fi
+    fi
+    sleep 5
+done
